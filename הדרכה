@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מרכז ההדרכות</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #111;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #4f46e5;
+    color: white;
+    padding: 15px 30px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  header h1 {
+    margin: 0;
+    font-size: 28px;
+  }
+  header img {
+    height: 50px;
+  }
+  .categories {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .category-btn {
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 25px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .category-btn:hover {
+    background-color: #3730a3;
+  }
+  .content {
+    max-width: 900px;
+    margin: 0 auto 50px auto;
+    padding: 0 20px;
+  }
+  .lesson {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  }
+  .lesson h3 {
+    margin: 0 0 10px 0;
+  }
+  .lesson video, .lesson img {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 14px;
+    background-color: #e5e7eb;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>מרכז ההדרכות</h1>
+  <img src="085ab269-f770-42b3-8737-83eadd42e7d8.png" alt="לוגו החברה">
+</header>
+
+<div class="categories">
+  <button class="category-btn" onclick="showCategory('video')">וידאו</button>
+  <button class="category-btn" onclick="showCategory('pdf')">מדריכים PDF</button>
+  <button class="category-btn" onclick="showCategory('tips')">טיפים</button>
+</div>
+
+<div class="content" id="content-area">
+  <p>בחר קטגוריה כדי להציג הדרכות.</p>
+</div>
+
+<script>
+  const lessons = {
+    video: [
+      { title: "הדרכה 1 - התחלה", type: "video", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
+      { title: "הדרכה 2 - ממשק משתמש", type: "video", src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" }
+    ],
+    pdf: [
+      { title: "מדריך PDF 1", type: "link", src: "https://example.com/guide1.pdf" },
+      { title: "מדריך PDF 2", type: "link", src: "https://example.com/guide2.pdf" }
+    ],
+    tips: [
+      { title: "טיפ 1", type: "text", text: "טיפ חשוב לשימוש במערכת." },
+      { title: "טיפ 2", type: "text", text: "טיפ נוסף לשיפור העבודה." }
+    ]
+  };
+
+  function showCategory(category) {
+    const area = document.getElementById('content-area');
+    area.innerHTML = '';
+    if (!lessons[category] || lessons[category].length === 0) {
+      area.innerHTML = '<p>אין תוכן לקטגוריה זו.</p>';
+      return;
+    }
+    lessons[category].forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'lesson';
+      const h3 = document.createElement('h3');
+      h3.textContent = item.title;
+      div.appendChild(h3);
+
+      if (item.type === 'video') {
+        const video = document.createElement('video');
+        video.src = item.src;
+        video.controls = true;
+        div.appendChild(video);
+      } else if (item.type === 'link') {
+        const a = document.createElement('a');
+        a.href = item.src;
+        a.textContent = 'פתח מדריך PDF';
+        a.target = '_blank';
+        div.appendChild(a);
+      } else if (item.type === 'text') {
+        const p = document.createElement('p');
+        p.textContent = item.text;
+        div.appendChild(p);
+      }
+
+      area.appendChild(div);
+    });
+  }
+</script>
+
+<footer>
+</footer>
+
+</body>
+</html>
